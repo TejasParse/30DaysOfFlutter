@@ -1,18 +1,30 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+var count = 0;
 
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Material(
-        child: Text("Hello"),
-      ),
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text("Hemlo"),
+            centerTitle: true,
+          ),
+          body: Container(
+            child: Center(
+              child: Text("Welcome to 30 days of Flutter"),
+            ),
+          ),
+        )
     );
   }
+}
+
+counter() {
+  count += 1;
 }
