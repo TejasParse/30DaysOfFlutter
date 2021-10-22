@@ -1,3 +1,5 @@
+import 'package:catalog/pages/home_page.dart';
+import 'package:catalog/pages/login_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,21 +12,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Scaffold(
-          appBar: AppBar(
-            title: Text("Hemlo"),
-            centerTitle: true,
-          ),
-          body: Container(
-            child: Center(
-              child: Text("Welcome to 30 days of Flutter"),
-            ),
-          ),
-        )
+      routes: {
+          "/" : (context) => LoginPage(),
+        "/Home" : (context) => HomePage(),
+      },
     );
   }
-}
-
-counter() {
-  count += 1;
 }
