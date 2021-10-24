@@ -2,8 +2,17 @@ import 'package:catalog/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+
+  String name ="";
+  bool clicked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +23,7 @@ class LoginPage extends StatelessWidget {
             children: [
               Image.asset("assets/images/login.png",height: 200,),
               Text(
-                "Welcome",
+                "Welcome "+ name,
                 style: GoogleFonts.oswald(fontSize: 20,color: Colors.blue[400]),
                 textScaleFactor: 2,
               ),
@@ -24,6 +33,11 @@ class LoginPage extends StatelessWidget {
                 child: Column(
                   children: [
                     TextFormField(
+                      onChanged: (value){
+                        setState(() {
+                          name=value;
+                        });
+                      },
                       decoration: InputDecoration(
                         hintText: "Enter User Name",
                         labelText: "User Name"
@@ -41,14 +55,29 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20,),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(50,50),
+              InkWell(
+                onTap: () async{
+                  setState(() {
+                    clicked=true;
+                  });
+                  await Future.delayed(Duration(seconds: 1), (){
+                    Navigator.pushNamed(context, MyRoutes.homeRoute);
+                    setState(() {
+                      clicked=false;
+                    });
+                  });
+                },
+                child: AnimatedContainer(
+                    duration: Duration(seconds: 1),
+                  child: clicked? Icon(Icons.done,color: Colors.white,):Text("Login",style: TextStyle(color: Colors.white),),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: Colors.blue[400],
+                    borderRadius: BorderRadius.circular(clicked?50:10),
+                  ),
+                  height: 50,
+                  width: clicked?50:150,
                 ),
-                  onPressed: (){
-                    Navigator.pushNamed(context,MyRoutes.homeRoute);
-                  },
-                  child: Text("Login")
               )
             ],
           )
