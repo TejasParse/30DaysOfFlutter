@@ -14,11 +14,33 @@ class _LoginPageState extends State<LoginPage> {
   String name ="";
   bool clicked = false;
 
+  final _formkey = GlobalKey<FormState>();
+
+  moveToHome(BuildContext context) async {
+    if(_formkey.currentState!.validate()) {
+      setState(() {
+        clicked = true;
+      });
+      await Future.delayed(Duration(seconds: 1), () async {
+        await Navigator.pushNamed(context, MyRoutes.homeRoute);
+        setState(() {
+          clicked = false;
+        });
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Login Page"),
+        centerTitle: true,
+        backgroundColor: Colors.red[400],
+      ),
       body: SingleChildScrollView(
-        child: Center(
+        child: Form(
+          key: _formkey,
           child: Column(
             children: [
               Image.asset("assets/images/login.png",height: 200,),
@@ -42,10 +64,28 @@ class _LoginPageState extends State<LoginPage> {
                         hintText: "Enter User Name",
                         labelText: "User Name"
                       ),
+                      validator: (value){
+                        if(value!.isEmpty)
+                          {
+                            return "User Name cannot be empty";
+                          }
+                        return null;
+                      },
                     ),
                     SizedBox(height: 20,),
                     TextFormField(
                       obscureText: true,
+                      validator: (value){
+                        if(value!.isEmpty)
+                          {
+                            return "Password cannot be empty";
+                          }
+                        else if(value!.length<6)
+                          {
+                            return "Password length should be minimum 6";
+                          }
+                        return null;
+                      },
                       decoration: InputDecoration(
                         hintText: "Enter Password",
                         labelText: "Password"
@@ -55,32 +95,22 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               SizedBox(height: 20,),
-              InkWell(
-                onTap: () async{
-                  setState(() {
-                    clicked=true;
-                  });
-                  await Future.delayed(Duration(seconds: 1), (){
-                    Navigator.pushNamed(context, MyRoutes.homeRoute);
-                    setState(() {
-                      clicked=false;
-                    });
-                  });
-                },
-                child: AnimatedContainer(
-                    duration: Duration(seconds: 1),
-                  child: clicked? Icon(Icons.done,color: Colors.white,):Text("Login",style: TextStyle(color: Colors.white),),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: Colors.blue[400],
-                    borderRadius: BorderRadius.circular(clicked?50:10),
+              Material(
+                color: Colors.blue[400],
+                borderRadius: BorderRadius.circular(clicked?50:10),
+                child: InkWell(
+                  onTap: () => moveToHome(context),
+                  child: AnimatedContainer(
+                      duration: Duration(seconds: 1),
+                    child: clicked? Icon(Icons.done,color: Colors.white,):Text("Login",style: TextStyle(color: Colors.white),),
+                    alignment: Alignment.center,
+                    height: 50,
+                    width: clicked?50:150,
                   ),
-                  height: 50,
-                  width: clicked?50:150,
                 ),
               )
             ],
-          )
+          ),
         ),
       ),
     );

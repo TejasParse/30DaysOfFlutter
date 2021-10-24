@@ -9,7 +9,12 @@ class HomePage extends StatelessWidget {
         centerTitle: true,
       ),
       body: Center(
-        child: Text("Hello"),
+        child: ElevatedButton(
+          onPressed: (){
+            Navigator.pop(context);
+          },
+          child: Text("Popout"),
+        ),
       ),
       drawer: Drawer(),
     );
