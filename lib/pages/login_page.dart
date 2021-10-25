@@ -43,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
           key: _formkey,
           child: Column(
             children: [
-              Image.asset("assets/images/login.png",height: 200,),
+              Image.asset("assets/images/login.png",height: 200),
               Text(
                 "Welcome "+ name,
                 style: GoogleFonts.oswald(fontSize: 20,color: Colors.blue[400]),

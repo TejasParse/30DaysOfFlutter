@@ -1,3 +1,4 @@
+import 'package:catalog/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -5,6 +6,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.deepPurple,
         title: Text("Main Page"),
         centerTitle: true,
       ),
@@ -16,7 +18,7 @@ class HomePage extends StatelessWidget {
           child: Text("Popout"),
         ),
       ),
-      drawer: Drawer(),
+      drawer: MyDrawer(),
     );
   }
 }
