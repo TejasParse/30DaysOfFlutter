@@ -37,6 +37,7 @@ class _LoginPageState extends State<LoginPage> {
         title: Text("Login Page"),
         centerTitle: true,
         backgroundColor: Colors.red[400],
+        foregroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
         child: Form(
