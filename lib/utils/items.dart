@@ -16,8 +16,7 @@ class Items {
         itemDescription: "Great Devices!",
         itemPrice: map["price"],
         itemColor: map["color"],
-        imageUrl: map["image"]
-    );
+        imageUrl: map["image"]);
   }
 
 }
