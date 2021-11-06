@@ -28,6 +28,7 @@ class _HomePageState extends State<HomePage> {
     var productsData = jsonDecoded["products"];
 
     CatalogHolder.itemList = List.from(productsData).map<Items>((index) => Items.fromMap(index)).toList();
+
   }
 
 
@@ -38,12 +39,42 @@ class _HomePageState extends State<HomePage> {
         title: Text("Main Page"),
         centerTitle: true,
       ),
-      body: ListView.builder(
+      // body: ListView.builder(
+      //     itemCount: CatalogHolder.itemList.length,
+      //   itemBuilder: (context,index){
+      //       return list_item_widget(item: CatalogHolder.itemList[index]);
+      //   },
+      // ),
+
+      body: GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+          ),
           itemCount: CatalogHolder.itemList.length,
-        itemBuilder: (context,index){
-            return list_item_widget(item: CatalogHolder.itemList[index]);
-        },
-      ),
+          itemBuilder: (context, index){
+            return Card(
+              clipBehavior: Clip.antiAlias,
+
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              child: GridTile(
+
+                header: Container(
+                  color: Colors.deepPurple,
+                    padding: EdgeInsets.all(10),
+                    child: Text(CatalogHolder.itemList[index].itemName,style: TextStyle(color: Colors.white),)
+                ),
+                child: Image.network(CatalogHolder.itemList[index].imageUrl),
+                footer: Container(
+                  padding: EdgeInsets.all(10),
+                    color: Colors.black,
+                    child: Text(CatalogHolder.itemList[index].itemPrice.toString(),style: TextStyle(color: Colors.white),)
+                ),
+              ),
+            );
+          },
+          ),
       drawer: MyDrawer(),
     );
   }
